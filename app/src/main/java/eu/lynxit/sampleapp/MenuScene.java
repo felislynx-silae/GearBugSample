@@ -25,12 +25,21 @@ public class MenuScene extends BaseScene {
                 });
             }
         }
+        TextButtonGVRSceneObject textButtonGVRSceneObject = new TextButtonGVRSceneObject(gvrContext, 3f, 1f, "TEST");
+        textButtonGVRSceneObject.attachComponent(new SelectableBehavior(cursorManager));
+        textButtonGVRSceneObject.getTransform().setPosition(0, -375, -700);
+        textButtonGVRSceneObject.getRenderData().setRenderingOrder(GVRRenderData.GVRRenderingOrder.TRANSPARENT + 15);
+        textButtonGVRSceneObject.setRefreshFrequency(IntervalFrequency.REALTIME);
+        textButtonGVRSceneObject.getTransform().setScale(80F, 80F, 0);
+        addSceneObject(textButtonGVRSceneObject);
     }
 
     @Override
     public void onEvent(CursorEvent event) {
         if (event.getObject() instanceof PresentationThumbnailGVRSceneObject) {
             ((PresentationThumbnailGVRSceneObject) event.getObject()).setHover(event.isOver());
+        } else if (event.getObject() instanceof TextButtonGVRSceneObject){
+            ((TextButtonGVRSceneObject) event.getObject()).hover(event.isOver());
         }
     }
 

@@ -42,10 +42,9 @@ android {
 
 dependencies {
     compile 'org.joml:joml-android:1.9.1-SNAPSHOT'
-    debugCompile(name: 'framework-debug-040417', ext: 'aar')
-    debugCompile(name: 'backend_oculus-debug-040417', ext: 'aar')
-    debugCompile(name: 'backend_daydream-debug-040417', ext: 'aar')
-    debugCompile(name: '3DCursorLibrary-debug-040417', ext: 'aar')
+    compile 'org.gearvrf:backend_oculus:3.2'
+    compile 'org.gearvrf:framework:3.2'
+    compile 'org.gearvrf:3DCursorLibrary:3.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.vr:sdk-base:1.30.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
