@@ -8,7 +8,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.annotation.Nullable;
 import android.text.TextPaint;
+import android.util.AttributeSet;
 import android.view.View;
 
 /**
@@ -34,10 +36,30 @@ public class ButtonView extends View {
 
     public ButtonView(Context context, String text) {
         super(context);
+        init(context, text);
+    }
+
+    public ButtonView(Context context) {
+        super(context);
+        init(context, "TEST");
+    }
+
+    public ButtonView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init(context, "TEST");
+    }
+
+    public ButtonView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, "TEST");
+    }
+
+    public void init(Context context, String text) {
         mText = text;
+        setBackgroundColor(Color.WHITE);
         float density = context.getResources().getDisplayMetrics().density;
         mNotSelectedTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        mNotSelectedTextPaint.setColor(Color.RED);
+        mNotSelectedTextPaint.setColor(Color.WHITE);
         mNotSelectedTextPaint.setTextSize(75F);
         mNotSelectedTextPaint.density = density;
         mNotSelectedTextPaint.setAntiAlias(true);
@@ -67,22 +89,23 @@ public class ButtonView extends View {
         cutPaint.setFilterBitmap(true);
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         mNotSelectedTextPaint.getTextBounds(mText, 0, mText.length(), mTextRect);
         float textX = (width / 2) - (mNotSelectedTextPaint.measureText(mText) / 2);
         float textY = (height / 2) - ((mNotSelectedTextPaint.ascent() + mNotSelectedTextPaint.descent()) / 2);
-        if (hover) {
+        /*if (hover) {
             fillPaint.setAlpha(((int) (255 * alpha)));
             canvas.drawRoundRect(mBounds, 90, 90, mBoundsPaint);
             canvas.drawRoundRect(mBoundsT, 90, 90, cutPaint);
             canvas.drawRoundRect(mBoundsT, 90, 90, fillPaint);
             canvas.drawText(mText, textX, textY, mSelectedTextPaint);
-        } else {
+        } else {*/
             canvas.drawRoundRect(mBounds, 90, 90, mBoundsPaint);
-            canvas.drawRoundRect(mBoundsT, 90, 90, cutPaint);
+         //   canvas.drawRoundRect(mBoundsT, 90, 90, cutPaint);
             canvas.drawText(mText, textX, textY, mNotSelectedTextPaint);
-        }
+        //}
     }
 
     @Override
@@ -112,7 +135,7 @@ public class ButtonView extends View {
         hover = false;
     }
 
-    public void setText(String text){
+    public void setText(String text) {
         mText = text;
     }
 }
