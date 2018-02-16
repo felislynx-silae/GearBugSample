@@ -25,11 +25,13 @@ public abstract class BaseScene extends GVRScene implements CursorEventListener 
 
     }
 
-    public void onStart(){
-        this.main.getCursor().addCursorEventListener(this);
+    public void onStart() {
+        if (main.getCursor() != null)
+            this.main.getCursor().addCursorEventListener(this);
     }
 
-    public void onEnd(){
-        this.main.getCursor().removeCursorEventListener(this);
+    public void onEnd() {
+        if (main.getCursor() != null)
+            this.main.getCursor().removeCursorEventListener(this);
     }
 }

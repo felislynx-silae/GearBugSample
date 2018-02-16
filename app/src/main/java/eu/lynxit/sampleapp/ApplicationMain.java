@@ -1,7 +1,5 @@
 package eu.lynxit.sampleapp;
 
-import android.util.Log;
-
 import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRMain;
@@ -11,6 +9,7 @@ import org.gearvrf.io.cursor3d.CursorEvent;
 import org.gearvrf.io.cursor3d.CursorEventListener;
 import org.gearvrf.io.cursor3d.CursorManager;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 public class ApplicationMain extends GVRMain {
@@ -33,10 +32,13 @@ public class ApplicationMain extends GVRMain {
     @Override
     public void onInit(final GVRContext gvrContext) throws Throwable {
         cursorManager = new CursorManager(gvrContext);
-        cursor = cursorManager.getActiveCursors().get(0);
-        assert cursor != null : "No cursors found!";
+        List<Cursor> cursorList =cursorManager.getActiveCursors();
+        for(Cursor c : cursorList) {
+            cursor = c;
+        }
+        if(cursor!=null)
         cursor.addCursorEventListener(mListener);
-        mBackSphere = gvrContext.loadFutureTexture(new GVRAndroidResource(gvrContext, R.raw.sphere_placeholder));
+        mBackSphere = gvrContext.getAssetLoader().loadFutureTexture(new GVRAndroidResource(gvrContext, R.raw.sphere_placeholder));
         MenuScene scene = new MenuScene(gvrContext, cursorManager, this, baseActivity);
         cursorManager.setScene(scene);
         getGVRContext().setMainScene(scene);
