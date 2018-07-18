@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-<eu.lynxit.sampleapp.ButtonView
-    android:id="@+id/button_view"
-    android:layout_width="250dp"
-    android:layout_height="100dp" />
+    <Button
+        android:text="BUTTON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
