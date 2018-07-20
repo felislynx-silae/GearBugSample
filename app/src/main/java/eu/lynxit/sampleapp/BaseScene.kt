@@ -2,13 +2,10 @@ package eu.lynxit.sampleapp
 
 import android.graphics.Color
 import android.view.View
-import org.gearvrf.GVRContext
-import org.gearvrf.GVRRenderData
-import org.gearvrf.GVRScene
-import org.gearvrf.GVRSceneObject
 import org.gearvrf.scene_objects.GVRSphereSceneObject
 import org.gearvrf.scene_objects.GVRViewSceneObject
 import android.widget.FrameLayout
+import org.gearvrf.*
 
 
 class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
@@ -49,9 +46,11 @@ class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
         variant = when (variant) {
             0 -> 1
             1 -> 2
+            2 -> 3
+            3 -> 4
             else -> 0
         }
-        val textures = (gvrContext.activity.main as ApplicationMain).getTexture(variant)
+        val textures = getTexture(variant)
         mLeftPhotosphere?.renderData?.material?.mainTexture = textures.first
         mRightPhotosphere?.renderData?.material?.mainTexture = textures.second
     }
@@ -60,7 +59,7 @@ class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
         mLeftPhotosphere = createPhotosphere(Eye.LEFT)
         mRightPhotosphere = createPhotosphere(Eye.RIGHT)
 
-        val textures = (gvrContext.activity.main as ApplicationMain).getTexture(2)
+        val textures = getTexture(4)
         mLeftPhotosphere?.renderData?.material?.mainTexture = textures.first
         mRightPhotosphere?.renderData?.material?.mainTexture = textures.second
         this.addSceneObject(mLeftPhotosphere)
@@ -81,5 +80,87 @@ class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
 
     enum class Eye {
         LEFT, RIGHT
+    }
+    fun getTexture(variant: Int): Pair<GVRTexture?, GVRTexture?> {
+        return when (variant) {
+            0 -> {
+                val tmp = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "phl.astc"
+                    )
+                )
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "phr.astc"
+                    )
+                )
+                Pair(tmp, tmp2)
+            }
+            1 -> {
+                val tmp = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "p1.JPG"
+                    )
+                )
+
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "p2.JPG"
+                    )
+                )
+                Pair(tmp, tmp2)
+            }
+            2 -> {
+                val tmp = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "3.JPG"
+                    )
+                )
+
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "p4.JPG"
+                    )
+                )
+                Pair(tmp, tmp2)
+            }
+            3 -> {
+                val tmp = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "p5.JPG"
+                    )
+                )
+
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "p6.JPG"
+                    )
+                )
+                Pair(tmp, tmp2)
+            }
+            else -> {
+                val tmp = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "phl.astc"
+                    )
+                )
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "phr.astc"
+                    )
+                )
+                Pair(tmp, tmp2)
+            }
+        }
     }
 }

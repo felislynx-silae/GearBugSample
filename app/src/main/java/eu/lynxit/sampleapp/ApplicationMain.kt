@@ -47,10 +47,16 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
                 val tmp = gvrContext?.assetLoader?.loadTexture(
                     GVRAndroidResource(
                         gvrContext.activity,
-                        "p1.JPG"
+                        "phl.astc"
                     )
                 )
-                Pair(tmp, tmp)
+                val tmp2 = gvrContext?.assetLoader?.loadTexture(
+                    GVRAndroidResource(
+                        gvrContext.activity,
+                        "phr.astc"
+                    )
+                )
+                Pair(tmp, tmp2)
             }
             1 -> {
                 val tmp = gvrContext?.assetLoader?.loadTexture(
