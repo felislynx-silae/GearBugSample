@@ -6,13 +6,17 @@ import org.gearvrf.scene_objects.GVRSphereSceneObject
 import org.gearvrf.scene_objects.GVRViewSceneObject
 import android.widget.FrameLayout
 import org.gearvrf.*
+import java.util.*
 
 
 class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
     var mLeftPhotosphere: GVRSceneObject? = null
     var mRightPhotosphere: GVRSceneObject? = null
 
+    var rn: Random?=null
+
     init {
+        rn = Random()
         addButton(-2f)
         addButton(2f)
         addButton(0f)
@@ -59,7 +63,7 @@ class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
         mLeftPhotosphere = createPhotosphere(Eye.LEFT)
         mRightPhotosphere = createPhotosphere(Eye.RIGHT)
 
-        val textures = getTexture(4)
+        val textures = getTexture(rn?.nextInt(4)?:0)
         mLeftPhotosphere?.renderData?.material?.mainTexture = textures.first
         mRightPhotosphere?.renderData?.material?.mainTexture = textures.second
         this.addSceneObject(mLeftPhotosphere)
