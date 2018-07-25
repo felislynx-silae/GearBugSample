@@ -29,8 +29,9 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
             val newTime = System.currentTimeMillis()
             if (newTime - time > 1000) {
                 time = newTime
-                currentScene = BaseScene(gvrContext)
-                gvrContext?.mainScene = currentScene
+                currentScene?.change()
+                //currentScene = BaseScene(gvrContext)
+                //gvrContext?.mainScene = currentScene
             }
         }
 
@@ -121,7 +122,7 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
 
             })
         }
-        currentScene = BaseScene(gvrContext)
+        currentScene = NotABaseScene(gvrContext)
         gvrContext?.mainScene = currentScene
     }
 

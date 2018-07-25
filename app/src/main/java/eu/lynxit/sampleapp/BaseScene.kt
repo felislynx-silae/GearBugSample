@@ -9,7 +9,7 @@ import org.gearvrf.*
 import java.util.*
 
 
-class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
+open class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
     var mLeftPhotosphere: GVRSceneObject? = null
     var mRightPhotosphere: GVRSceneObject? = null
 
@@ -17,29 +17,44 @@ class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
 
     init {
         rn = Random()
-        addButton(-2f)
+        addButton(8f)
+        addButton(6f)
+        addButton(4f)
         addButton(2f)
         addButton(0f)
         addButton(-10f)
         addButton(-15f)
+        addButton(-20f)
+        addButton(-25f)
+        addButton(-30f)
+        addButton(8f,-2f)
+        addButton(6f,-2f)
+        addButton(4f,-2f)
+        addButton(2f,-2f)
+        addButton(0f,-2f)
+        addButton(-10f,-2f)
+        addButton(-15f,-2f)
+        addButton(-20f,-2f)
+        addButton(-25f,-2f)
+        addButton(-30f,-2f)
         initializeSpheres()
     }
 
-    fun addButton(posx:Float) {
+    fun addButton(posx:Float, posY:Float=-1f) {
         gvrContext.activity.runOnUiThread {
             val frameLayout = FrameLayout(gvrContext.activity)
-            gvrContext.activity.registerView(frameLayout)
+            (gvrContext.activity as GVRActivity).registerView(frameLayout)
             View.inflate(gvrContext.activity, R.layout.activity_main, frameLayout)
             frameLayout.setBackgroundColor(Color.WHITE)
             frameLayout.layoutParams.width = 750
             frameLayout.layoutParams.height = 300
-            gvrContext.activity.unregisterView(frameLayout)
+            (gvrContext.activity as GVRActivity).unregisterView(frameLayout)
 
             val sceneObject =
                 GVRViewSceneObject(gvrContext, frameLayout, gvrContext.createQuad(1.5f, 1f))
             sceneObject.transform.positionZ = -2.5f
             sceneObject.transform.positionX = posx
-            sceneObject.transform.positionY = -1f
+            sceneObject.transform.positionY = posY
 
             gvrContext.mainScene.addSceneObject(sceneObject)
         }
