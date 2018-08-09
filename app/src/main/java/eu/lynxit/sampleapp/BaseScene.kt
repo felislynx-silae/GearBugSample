@@ -137,7 +137,7 @@ open class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
                 val tmp = gvrContext?.assetLoader?.loadTexture(
                     GVRAndroidResource(
                         gvrContext.activity,
-                        "3.JPG"
+                        "p3.JPG"
                     )
                 )
 
