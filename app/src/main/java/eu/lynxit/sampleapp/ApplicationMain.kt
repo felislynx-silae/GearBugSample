@@ -1,12 +1,16 @@
 package eu.lynxit.sampleapp
 
+import android.util.Log
 import android.view.MotionEvent
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import org.gearvrf.*
 import org.gearvrf.io.GVRCursorController
 import java.util.*
 
 class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
-
+    var counter = 0
     var cursor: GVRSceneObject? = null
     var controller: GVRCursorController? = null
     val mPickHandler = object : ITouchEvents {
@@ -59,17 +63,44 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
             newController.cursor = cursor
             newController.cursorDepth = -8f
             newController.cursorControl =
-                    GVRCursorController.CursorControl.PROJECT_CURSOR_ON_SURFACE
+                GVRCursorController.CursorControl.PROJECT_CURSOR_ON_SURFACE
             newController.picker.eventOptions = eventOptions
             newController.setScene(currentScene)
             newController.addControllerEventListener { controller, isActive -> }
         }
-        currentScene = NotABaseScene(gvrContext)
+        currentScene = NotABaseScene(gvrContext,0)
         gvrContext?.mainScene = currentScene
+        changeScene()
+    }
+
+    fun changeScene() {
+        GlobalScope.async {
+            gvrContext?.runOnGlThread {
+                try {
+                    gvrContext?.activity?.runOnUiThread {
+                        (currentScene as NotABaseScene).sceneObjects?.filter { it is AndroidView }
+                            ?.forEach {
+                                (it as AndroidView).clear()
+                            }
+                        (currentScene as NotABaseScene).sceneObjects?.forEach {
+                            currentScene?.removeSceneObject(it)
+                        }
+                    }
+                } catch (e:Exception){
+                    Log.d("DEBUG","ERROR: ${e.message}")
+                }
+                counter += 1
+                Log.d("DEBUG", "Scene changed: $counter times")
+                currentScene = NotABaseScene(gvrContext, counter)
+                gvrContext?.mainScene = currentScene
+            }
+            delay(3000)
+            changeScene()
+        }
     }
 
     override fun onStep() {
-        //nothign to do
+        //nothing to do
     }
 
 }

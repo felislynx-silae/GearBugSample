@@ -36,7 +36,7 @@ open class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
     fun addButton(posx: Float, posY: Float = -1f) {
         this.addSceneObject(AndroidView(
             gvrContext,
-            R.layout.activity_main,
+            R.layout.button_layout,
             750,
             300,
             0.65f,
@@ -44,6 +44,7 @@ open class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
             -2.6f,
             gvrContext.activity.resources.getColor(R.color.colorNavyBlue)
         ).apply {
+            this.setBufferScale(2)
             this.transform.positionZ = -2.5f
             this.transform.positionX = posx
             this.transform.positionY = posY
