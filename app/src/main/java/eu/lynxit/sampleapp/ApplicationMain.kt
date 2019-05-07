@@ -1,6 +1,5 @@
 package eu.lynxit.sampleapp
 
-import android.util.Log
 import android.view.MotionEvent
 import org.gearvrf.*
 import org.gearvrf.io.GVRCursorController
@@ -24,15 +23,7 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
         ) {
         }
 
-        var time = 0L
         override fun onTouchEnd(sceneObj: GVRSceneObject?, collision: GVRPicker.GVRPickedObject?) {
-            val newTime = System.currentTimeMillis()
-            if (newTime - time > 1000) {
-                time = newTime
-                currentScene?.change()
-                //currentScene = BaseScene(gvrContext)
-                //gvrContext?.mainScene = currentScene
-            }
         }
 
         override fun onInside(sceneObj: GVRSceneObject?, collision: GVRPicker.GVRPickedObject?) {
@@ -41,44 +32,6 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
         override fun onExit(sceneObj: GVRSceneObject?, collision: GVRPicker.GVRPickedObject?) {
         }
 
-    }
-
-    fun getTexture(variant: Int): Pair<GVRTexture?, GVRTexture?> {
-        return when (variant) {
-            0 -> {
-                val tmp = gvrContext?.assetLoader?.loadTexture(
-                    GVRAndroidResource(
-                        gvrContext.activity,
-                        "phl.astc"
-                    )
-                )
-                val tmp2 = gvrContext?.assetLoader?.loadTexture(
-                    GVRAndroidResource(
-                        gvrContext.activity,
-                        "phr.astc"
-                    )
-                )
-                Pair(tmp, tmp2)
-            }
-            1 -> {
-                val tmp = gvrContext?.assetLoader?.loadTexture(
-                    GVRAndroidResource(
-                        gvrContext.activity,
-                        "p2.JPG"
-                    )
-                )
-                Pair(tmp, tmp)
-            }
-            else -> {
-                val tmp = gvrContext?.assetLoader?.loadTexture(
-                    GVRAndroidResource(
-                        gvrContext.activity,
-                        "p3.JPG"
-                    )
-                )
-                Pair(tmp, tmp)
-            }
-        }
     }
 
     var currentScene: BaseScene? = null
@@ -109,18 +62,7 @@ class ApplicationMain(val baseActivity: MainActivity) : GVRMain() {
                     GVRCursorController.CursorControl.PROJECT_CURSOR_ON_SURFACE
             newController.picker.eventOptions = eventOptions
             newController.setScene(currentScene)
-            newController.addControllerEventListener(object:GVRCursorController.IControllerEvent{
-                var time = 0L
-                override fun onEvent(controller: GVRCursorController?, isActive: Boolean) {
-                    if(controller?.keyEvent?.keyCode == 29) {val newTime = System.currentTimeMillis()
-                        if (newTime - time > 1000) {
-                            time = newTime
-                            currentScene?.change()
-                        }
-                    }
-                }
-
-            })
+            newController.addControllerEventListener { controller, isActive -> }
         }
         currentScene = NotABaseScene(gvrContext)
         gvrContext?.mainScene = currentScene
