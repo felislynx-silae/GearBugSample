@@ -41,7 +41,7 @@ open class BaseScene(gvrContext: GVRContext?) : GVRScene(gvrContext) {
     }
 
     fun addButton(posx:Float, posY:Float=-1f) {
-        gvrContext.activity.runOnUiThread {
+        gvrContext.runOnTheFrameworkThread {
             val frameLayout = FrameLayout(gvrContext.activity)
             (gvrContext.activity as GVRActivity).registerView(frameLayout)
             View.inflate(gvrContext.activity, R.layout.activity_main, frameLayout)

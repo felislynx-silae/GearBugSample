@@ -23,7 +23,7 @@ android {
     defaultConfig {
         applicationId "eu.lynxit.sampleapp"
         minSdkVersion 24
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -54,9 +54,9 @@ dependencies {
     //implementation 'org.gearvrf:backend_daydream:4.0.1-SNAPSHOT'
     //implementation 'org.gearvrf:backend_oculus:4.0.1-SNAPSHOT'
     implementation(name: 'backend_oculus-release', ext: 'aar')
-    implementation 'com.google.vr:sdk-common:1.150.0'
-    implementation 'com.google.vr:sdk-base:1.150.0'
-    implementation 'com.google.vr:sdk-controller:1.130.0'
+    implementation 'com.google.vr:sdk-common:1.180.0'
+    implementation 'com.google.vr:sdk-base:1.180.0'
+    implementation 'com.google.vr:sdk-controller:1.180.0'
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.android.support:support-annotations:28.0.0'
 }
